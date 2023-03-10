@@ -24,8 +24,8 @@ static int sunxi_msgbox_interrupt(int dummy, void *args) {
   msgbox_rxcb rcb = (msgbox_rxcb)args;
   for (int i = 0; i < SUNXI_MSGBOX_MAX_CHANNEL; i++) {
     if (SUNXI_MSGBOX_RD_IRQ_IS_PENDING(i)) {
-      while (inpw(SUNXI_MSGBOX_DSP_MSG_STATUS_REG(i))) {
-        dat = inpw(SUNXI_MSGBOX_DSP_MSG_REG(i));
+      while (readl(SUNXI_MSGBOX_DSP_MSG_STATUS_REG(i))) {
+        dat = readl(SUNXI_MSGBOX_DSP_MSG_REG(i));
         { xt_printf("dsp recv %08x\n", dat); }
       }
       SUNXI_MSGBOX_RD_IRQ_CLR_PENDING(i);
@@ -42,9 +42,9 @@ void dsp_msgbox_init(void (*rxcb)(uint32_t, uint32_t)) {
 }
 
 static void msgbox_channel_send_data(uint32_t ch, uint32_t data) {
-  while (inpw(SUNXI_MSGBOX_ARM_MSG_STATUS_REG(ch)) == SUNXI_MSGBOX_MAX_QUEUE)
+  while (readl(SUNXI_MSGBOX_ARM_MSG_STATUS_REG(ch)) == SUNXI_MSGBOX_MAX_QUEUE)
     ;
-  outpw(SUNXI_MSGBOX_ARM_MSG_REG(ch), data);
+  writel(SUNXI_MSGBOX_ARM_MSG_REG(ch), data);
 }
 
 void dsp_msgbox_channel_send(uint32_t ch, uint8_t *bf, uint32_t len) {

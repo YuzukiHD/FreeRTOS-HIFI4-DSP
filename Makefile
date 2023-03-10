@@ -126,6 +126,8 @@ $(APP): $(LIB_OBJS)
 	$(Q)$(RE) -a $(APP) > $(OUTDIR)/$(APP_NAME).readelf
 	$(Q)echo -e '\033[0;31;1m'
 	$(Q)$(SIZE) $(APP)
+	$(Q)echo -e '\033[0;32;1m'
+	$(Q)echo Build $(APP) Successful
 	$(Q)echo -e '\033[0m'
 
 $(BUILDDIR)/%.o: %.S

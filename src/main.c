@@ -67,7 +67,9 @@ static const char *dsp = "mini5 dsp start...";
 extern void dsp_interrupt_init(void);
 int main(void) {
   printf("dsp %s %f\n", dsp, 0.123);
+
   xTaskHandle xHandleTaskLED1;
+  
   xTaskCreate(vTaskLed1,   /* 任务函数名 */
               "Task Led1", /* 任务名，字符串形式，方便调试 */
               4096,        /* 栈大小，单位为字，即4个字节 */

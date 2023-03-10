@@ -134,9 +134,9 @@ void board_init(void) {
 }
 
 int outbyte(char c) {
-  while ((inpw(SUNXI_UART0_BA + UART_LSR) & (1 << 5)) == 0)
+  while ((readl(SUNXI_UART0_BA + UART_LSR) & (1 << 5)) == 0)
     ;
-  outpw(SUNXI_UART0_BA + UART_THR, c);
+  writel(SUNXI_UART0_BA + UART_THR, c);
   return 0;
 }
 
