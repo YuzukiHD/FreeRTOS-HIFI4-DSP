@@ -9,21 +9,6 @@
 #include "platform.h"
 
 static void _cache_config(void) {
-#if 0
-	/* 0x0~0x20000000-1 is non-cacheable */
-	xthal_set_region_attribute((void *)0x00020000, 0x28000, XCHAL_CA_BYPASS, 0);
-    xthal_set_region_attribute((void *)0x000400000, 0x10000, XCHAL_CA_BYPASS, 0);
-	xthal_set_region_attribute((void *)0x000420000, 0x8000, XCHAL_CA_BYPASS, 0);
-	xthal_set_region_attribute((void *)0x000440000, 0x8000, XCHAL_CA_BYPASS, 0);
-    xthal_set_region_attribute((void *)0x01700000, 0x1000, XCHAL_CA_BYPASS, 0);
-	xthal_set_region_attribute((void *)0x02000000, 0x8000000, XCHAL_CA_BYPASS, 0);
-    xthal_set_region_attribute((void *)0x10000000, 0x10000000, XCHAL_CA_BYPASS, 0);
-	/* 0x20000000~0x40000000-1 is cacheable */
-	xthal_set_region_attribute((void *)0x30000000, 0x10000000, XCHAL_CA_WRITEBACK, 0);
-	/* set prefetch level */
-	xthal_set_cache_prefetch(XTHAL_PREFETCH_BLOCKS(8) |XTHAL_DCACHE_PREFETCH_HIGH | XTHAL_ICACHE_PREFETCH_HIGH |XTHAL_DCACHE_PREFETCH_L1);
-#endif
-
   /* 0x0~0x20000000-1 is non-cacheable */
   xthal_set_region_attribute((void *)0x00000000, 0x20000000, XCHAL_CA_WRITEBACK,
                              0);

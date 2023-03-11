@@ -9,6 +9,7 @@ OC	  := $(CROSS_COMPILE)objcopy
 OD	  := $(CROSS_COMPILE)objdump
 SIZE  := $(CROSS_COMPILE)size
 RE    := $(CROSS_COMPILE)readelf
+SP    := $(CROSS_COMPILE)strip
 MKDIR := mkdir -p
 CP	  := cp -af
 RM	  := rm -fr
@@ -102,7 +103,7 @@ LIB_OBJS += lib/crtbegin.o
 LIB_OBJS += lib/crtend.o
 LIB_OBJS += lib/crtn.o
 
-all:clean builddir $(APP)
+all: clean builddir $(APP)
 
 builddir:
 	$(Q)$(MKDIR) $(BUILDDIR)
@@ -118,12 +119,14 @@ builddir:
 	$(Q)$(MKDIR) $(BUILDDIR)/output
 
 $(APP): $(LIB_OBJS) 
-	$(Q)echo [LD] Linking $@
+	$(Q)echo [LD] LINKING $@
 	$(Q)$(CC) $(CFLAGS) $(LDFLAGS) $(LIB_OBJS) $(LIBS) -o $(APP)
-	$(Q)echo [OD] Objdump $@
+	$(Q)echo [OD] OBJDUMP $@
 	$(Q)$(OD) -D $(APP) > $(OUTDIR)/$(APP_NAME).dis
-	$(Q)echo [RE] Readelf $@
+	$(Q)echo [RE] READELF $@
 	$(Q)$(RE) -a $(APP) > $(OUTDIR)/$(APP_NAME).readelf
+	$(Q)echo [SP] STRIP $@
+	$(Q)$(SP) -s $(APP)
 	$(Q)echo -e '\033[0;31;1m'
 	$(Q)$(SIZE) $(APP)
 	$(Q)echo -e '\033[0;32;1m'

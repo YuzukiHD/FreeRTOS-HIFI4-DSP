@@ -55,7 +55,7 @@ void vTaskLed1(void *pvParameters) {
   coremark_main();
   uint32_t sdata = 0;
   while (1) {
-    // xt_printf("task led run on task\n");
+    xt_printf("task led run on task\n");
     LED_TOG;
     sdata++;
     vTaskDelay(500);
