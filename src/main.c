@@ -20,34 +20,8 @@ extern int linpack_main(void);
 extern int dhry_main(int t);
 extern void coremark_main(void);
 
-#include "fft.h"
-
-#define FFT_NUM 256
-static fft_ctrl_t *fft_ctrl = NULL;
-static float real_in[FFT_NUM];
-static float real_out[FFT_NUM];
-static float image_out[FFT_NUM];
-
-void vTaskLed1(void *pvParameters) {
-  /* 任务都是一个无限，不能返回 */
+void vTaskMain(void *pvParameters) {
   (void)pvParameters;
-
-  fft_ctrl = fft_ctrl_create(FFT_NUM);
-
-  if (fft_ctrl == NULL) {
-    xt_printf("fft ctrl create failure\n");
-  }
-  for (int i = 0; i < FFT_NUM; i++) {
-    real_in[i] = 1.0;
-  }
-  TickType_t st = xTaskGetTickCount();
-  fft_ctrl_do(fft_ctrl, real_in, real_out, image_out);
-
-  TickType_t ed = xTaskGetTickCount();
-
-  xt_printf("fft %d used %d ms\n", FFT_NUM, ed - st);
-  fft_ctrl_destory(fft_ctrl);
-
   dsp_msgbox_init(NULL);
   vTaskDelay(500);
   dhry_main(10000000);
@@ -64,18 +38,17 @@ void vTaskLed1(void *pvParameters) {
 
 static const char *dsp = "mini5 dsp start...";
 
-extern void dsp_interrupt_init(void);
 int main(void) {
   printf("dsp %s %f\n", dsp, 0.123);
 
-  xTaskHandle xHandleTaskLED1;
+  xTaskHandle xHandleTaskMain;
   
-  xTaskCreate(vTaskLed1,   /* 任务函数名 */
-              "Task Led1", /* 任务名，字符串形式，方便调试 */
+  xTaskCreate(vTaskMain,   /* 任务函数名 */
+              "Task Main", /* 任务名，字符串形式，方便调试 */
               4096,        /* 栈大小，单位为字，即4个字节 */
               NULL,        /* 任务形参 */
               1,           /* 优先级，数值越大，优先级越高 */
-              &xHandleTaskLED1); /* 任务句柄 */
+              &xHandleTaskMain); /* 任务句柄 */
   printf("vTaskStartScheduler\n");
   vTaskStartScheduler();
 

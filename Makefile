@@ -21,8 +21,7 @@ DEPFLAGS = -MT $@ -MD -MP -MF $(basename $@).d
 
 APP_NAME = dsp
 BUILDDIR = ./build
-OUTDIR := $(BUILDDIR)/output
-APP := $(OUTDIR)/$(APP_NAME).elf
+APP := $(BUILDDIR)/$(APP_NAME).elf
 
 IFLAGS := -I ./include
 IFLAGS += -I ./arch
@@ -47,13 +46,12 @@ CFLAGS  += -Wno-unused-variable
 LDFLAGS := -nostdlib -Wl,--gc-sections -Wl,--defsym=__prefctl_default=0x144 
 LDFLAGS += -Wl,--defsym=__memctl_default_post=1
 LDFLAGS += -Wl,--abi-windowed
-LDFLAGS += -Wl,-Map,$(OUTDIR)/dsp.map
+LDFLAGS += -Wl,-Map,$(BUILDDIR)/dsp.map
 LDFLAGS += -Wl,--script link.ld
 
 LIBS =  -L ./lib/  -lxtutil  -lhandler-reset -lc -lgloss -lhal -lm -lgcc -lc
 
 APP_SRC := src/main
-APP_SRC += src/fft
 APP_SRC += src/msgbox
 
 BENCHMARK_SRC := benchmark/linpack-pc
@@ -121,12 +119,12 @@ builddir:
 $(APP): $(LIB_OBJS) 
 	$(Q)echo [LD] LINKING $@
 	$(Q)$(CC) $(CFLAGS) $(LDFLAGS) $(LIB_OBJS) $(LIBS) -o $(APP)
-	$(Q)echo [OD] OBJDUMP $@
-	$(Q)$(OD) -D $(APP) > $(OUTDIR)/$(APP_NAME).dis
-	$(Q)echo [RE] READELF $@
-	$(Q)$(RE) -a $(APP) > $(OUTDIR)/$(APP_NAME).readelf
 	$(Q)echo [SP] STRIP $@
 	$(Q)$(SP) -s $(APP)
+	$(Q)echo [OD] OBJDUMP $@
+	$(Q)$(OD) -D $(APP) > $(BUILDDIR)/$(APP_NAME).dis
+	$(Q)echo [RE] READELF $@
+	$(Q)$(RE) -a $(APP) > $(BUILDDIR)/$(APP_NAME).readelf
 	$(Q)echo -e '\033[0;31;1m'
 	$(Q)$(SIZE) $(APP)
 	$(Q)echo -e '\033[0;32;1m'
