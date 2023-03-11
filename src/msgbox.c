@@ -26,7 +26,7 @@ static int sunxi_msgbox_interrupt(int dummy, void *args) {
     if (SUNXI_MSGBOX_RD_IRQ_IS_PENDING(i)) {
       while (readl(SUNXI_MSGBOX_DSP_MSG_STATUS_REG(i))) {
         dat = readl(SUNXI_MSGBOX_DSP_MSG_REG(i));
-        { xt_printf("dsp recv %08x\n", dat); }
+        { printf("dsp recv %08x\n", dat); }
       }
       SUNXI_MSGBOX_RD_IRQ_CLR_PENDING(i);
     }

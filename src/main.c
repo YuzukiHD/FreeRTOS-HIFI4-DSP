@@ -29,7 +29,7 @@ void vTaskMain(void *pvParameters) {
   coremark_main();
   uint32_t sdata = 0;
   while (1) {
-    xt_printf("task led run on task\n");
+    printf("task led run on task\n");
     LED_TOG;
     sdata++;
     vTaskDelay(500);
@@ -39,12 +39,7 @@ void vTaskMain(void *pvParameters) {
 int main(void) {
   xTaskHandle xHandleTaskMain;
 
-  xTaskCreate(vTaskMain,   /* 任务函数名 */
-              "Task Main", /* 任务名，字符串形式，方便调试 */
-              4096,        /* 栈大小，单位为字，即4个字节 */
-              NULL,        /* 任务形参 */
-              1,           /* 优先级，数值越大，优先级越高 */
-              &xHandleTaskMain); /* 任务句柄 */
+  xTaskCreate(vTaskMain, "Task Main", 4096, NULL, 1, &xHandleTaskMain);
   printf("vTaskStartScheduler\n");
   vTaskStartScheduler();
 
