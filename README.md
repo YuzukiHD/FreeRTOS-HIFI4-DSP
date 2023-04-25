@@ -19,6 +19,6 @@ git clone https://github.com/YuzukiHD/FreeRTOS-HIFI4-DSP.git
 
 3. `make`
 
-## ELF Loader
+## Firmware Loader
 Here is a U-Boot Driver to load firmware to HIFI4 DSP  
 - https://github.com/YuzukiHD/FreeRTOS-HIFI4-DSP/tree/master/host/uboot-driver/dsp
