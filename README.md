@@ -1,4 +1,7 @@
 # FreeRTOS-HIFI4-DSP
+
+> ⚠ Not official RTOS SDK and Compiler, **NOT Support DSP feature**
+
 FreeRTOS for Cadence Tensilica HIFI 4 DSP, With GCC Compiler
 
 ## About Compiler
