@@ -137,13 +137,6 @@ _start:
       
 		
 	movi	a0, 0			// keep this register zero.
-#if 0
-        movi a3, 0x11221111
-	movi a7, 0x020008
-	s32i  a3, a7, 0
-	memw
-	j .
-#endif
 	        
 // This is never needed in normal operation. If for some reason you want to reset
 // the extra state, include this file. Note reset-unneeded.S is not certified.
@@ -161,23 +154,9 @@ _start:
 	movi	a2, __stack_init	// optional user hook
 	movi	a1, __stack		// default SP
 	movi	sp, __stack
-#if 0
-        movi a3, 0x11221111
-	movi a7, 0x020004
-	s32i  a3, a7, 0
-	memw
-	j .
-#endif
 	beqz	a2, 1f
 	callx0	a2
 	movi	a0, 0			// keep this register zero
-#if 0
-        movi a3, 0x11224444
-	movi a7, 0x020000
-	s32i  a3, a7, 0
-	memw
-	j .
-#endif
 1:
         
 #if XCHAL_HAVE_ISL
@@ -291,7 +270,7 @@ _start:
 	s32i  a3, a7, 0
 	memw
         
-        j .
+    j .
 #endif
 	j	.Lnobss			// skip default BSS init code
 2:
@@ -409,12 +388,12 @@ _start:
 	j	.Lmain
 1:
 #endif
-        j	.Lmain
+    j	.Lmain
 	movi 	ARG3, _start_envp	// envp
 	movi 	ARG4, _init		// _init
 	movi	ARG5, _fini		// _fini
 #if 1
-        movi a3, _start_envp
+    movi a3, _start_envp
 	movi a7, 0x020010
 	s32i  a3, a7, 0
 	memw
@@ -429,13 +408,7 @@ _start:
 	
 #endif
 	CALL	__clibrary_init
-#if 1	
-        movi a3, 0x11223344
-	movi a7, 0x020020
-	s32i  a3, a7, 0
-	memw
-	j .
-#endif
+
 .Lmain:
 	// Call: int main(int argc, char ** argv, char ** environ);
 
@@ -453,13 +426,6 @@ _start:
 #endif	// SIMULATOR
 
 	movi	ARG3, _start_envp	// envp
-#if 0
-	movi a3, 0x11223355
-	movi a7, 0x020010
-	s32i  a3, a7, 0
-	memw
-	j   .
-#endif
 	CALL	main
 
 #if XCHAL_HAVE_PRID && (XSHAL_CLIB == XTHAL_CLIB_XCLIB)

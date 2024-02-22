@@ -54,7 +54,6 @@
 
 #include <stdlib.h>
 #include <xtensa/config/core.h>
-#include <xtutil.h>
 
 #include "xtensa_rtos.h"
 #include "FreeRTOS.h"

@@ -1,3 +1,4 @@
 tools/xtensa-hifi4-gcc
 tools/xtensa-hifi4-dsp.tar.gz
 build/
+.vscode/settings.json

@@ -1,4 +1,4 @@
-CROSS_COMPILE ?= /home/yuzuki/Github/D1-HIFI4/tools/xtensa-hifi4-gcc/bin/xtensa-hifi4-elf-
+CROSS_COMPILE ?= ./tools/xtensa-hifi4-gcc/bin/xtensa-hifi4-elf-
 
 AS	  := $(CROSS_COMPILE)gcc -x assembler-with-cpp
 CC	  := $(CROSS_COMPILE)gcc
@@ -38,10 +38,10 @@ DFLAGS += -DXTUTIL_NO_OVERRIDE
 DFLAGS += -DMAIN_HAS_NOARGC
 DFLAGS += -DPERFORMANCE_RUN=1 -DITERATIONS=23000
 
-CFLAGS  := -Wa,--longcalls -static -O2  -Wall -mtext-section-literals  -fno-inline-functions 
+CFLAGS  := -Wa,--longcalls -static -O2  -Wall -mtext-section-literals  -fno-inline-functions
 CFLAGS  += -ffunction-sections -fdata-sections  -mlongcalls  $(DFLAGS) $(IFLAGS)
 CFLAGS  += -std=c99 -Wextra -Wa,--no-generate-flix -mtarget-align 
-CFLAGS  += -Wno-unused-variable
+CFLAGS  += -Wno-unused-variable -Wno-unused-function
 
 LDFLAGS := -nostdlib -Wl,--gc-sections -Wl,--defsym=__prefctl_default=0x144 
 LDFLAGS += -Wl,--defsym=__memctl_default_post=1

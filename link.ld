@@ -13,7 +13,7 @@ MEMORY
   iram0_7_seg :                       	org = 0x004011F8, len = 0x20
   iram0_8_seg :                       	org = 0x00401218, len = 0x20
   iram0_9_seg :                       	org = 0x00401238, len = 0xEDC4
-  ddr1_0_seg :                        	org = 0x37900000, len = 0x400000
+  ddr1_0_seg :                        	org = 0x40900000, len = 0x400000
 }
 
 PHDRS

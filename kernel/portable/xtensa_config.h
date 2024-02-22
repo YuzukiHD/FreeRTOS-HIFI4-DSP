@@ -134,7 +134,9 @@ state.
 #include <sys/reent.h>
 #define XT_CLIB_CONTEXT_AREA_SIZE ((sizeof(struct _reent) + 15) + (-16))
 #define XT_CLIB_GLOBAL_PTR _reent_ptr
+#ifndef _REENT_INIT_PTR
 #define _REENT_INIT_PTR _init_reent
+#endif
 #define _impure_ptr _reent_ptr
 
 // void _reclaim_reent(void * ptr);
